@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>一个可拖拽的div</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        div {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        var div = document.querySelector('div');
+        div.addEventListener('mousedown', function (e) {
+            // console.log(e.pageX);
+            // console.log(e.pageY);
+            // console.log(div.offsetLeft);
+            // console.log(div.offsetTop);
+            var x = e.pageX - div.offsetLeft;
+            var y = e.pageY - div.offsetTop;
+            document.addEventListener('mousemove', move)
+
+            function move(e) {
+                // console.log(e.pageX);
+                var resultX = e.pageX - x;
+                var resultY = e.pageY - y;
+                if (resultX < 0) {
+                    resultX = 0;
+                }
+                if (resultY < 0) {
+                    resultY = 0;
+                }
+                div.style.left = resultX + 'px';
+                div.style.top = resultY + 'px';
+            }
+            document.addEventListener('mouseup', function () {
+                document.removeEventListener('mousemove', move)
+            })
+
+        })
+    </script>
+</body>
+
+</html>
